@@ -6,11 +6,30 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
+
+    connect(ui->checkBox_group_execute, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+    connect(ui->checkBox_group_write, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+    connect(ui->checkBox_group_read, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+
+    connect(ui->checkBox_other_execute, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+    connect(ui->checkBox_other_write, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+    connect(ui->checkBox_other_read, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+
+    connect(ui->checkBox_owner_execute, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+    connect(ui->checkBox_owner_write, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+    connect(ui->checkBox_owner_read, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
+
 }
 
 Widget::~Widget()
 {
     delete ui;
+}
+
+
+void Widget::onCheckboxStateChange()
+{
+    on_pushButton_clicked();
 }
 
 void Widget::on_pushButton_clicked()
@@ -53,5 +72,4 @@ void Widget::on_pushButton_clicked()
     memcpy(&permisos_totales[6], permisos_other, sizeof(permisos_other));
 
     ui->label_permisos->setText(QString(permisos_totales));
-
 }
