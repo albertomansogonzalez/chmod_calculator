@@ -29,10 +29,10 @@ Widget::~Widget()
 
 void Widget::onCheckboxStateChange()
 {
-    on_pushButton_clicked();
+    calcular_permisos();
 }
 
-void Widget::on_pushButton_clicked()
+void Widget::calcular_permisos()
 {
 
     char m_owner = (ui->checkBox_owner_read->isChecked() << 2)

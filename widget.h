@@ -16,11 +16,11 @@ public:
     ~Widget();
 
 private slots:
-    void on_pushButton_clicked();
     void onCheckboxStateChange();
 
 private:
     Ui::Widget *ui;
+    void calcular_permisos();
 };
 
 #endif // WIDGET_H
