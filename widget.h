@@ -17,6 +17,8 @@ public:
 
 private slots:
     void onCheckboxStateChange();
+    void slotCheckAll();
+    void slotCheckNone();
 
 private:
     Ui::Widget *ui;

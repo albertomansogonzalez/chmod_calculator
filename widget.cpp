@@ -19,6 +19,9 @@ Widget::Widget(QWidget *parent) :
     connect(ui->checkBox_owner_write, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
     connect(ui->checkBox_owner_read, &QCheckBox::stateChanged, this, &Widget::onCheckboxStateChange);
 
+    connect(ui->pushButton_all, &QPushButton::clicked, this, &Widget::slotCheckAll);
+    connect(ui->pushButton_none, &QPushButton::clicked, this, &Widget::slotCheckNone);
+
 }
 
 Widget::~Widget()
@@ -31,6 +34,37 @@ void Widget::onCheckboxStateChange()
 {
     calcular_permisos();
 }
+
+
+void Widget::slotCheckAll()
+{
+    ui->checkBox_group_execute->setChecked(true);
+    ui->checkBox_group_write->setChecked(true);
+    ui->checkBox_group_read->setChecked(true);
+    ui->checkBox_other_execute->setChecked(true);
+    ui->checkBox_other_write->setChecked(true);
+    ui->checkBox_other_read->setChecked(true);
+    ui->checkBox_owner_execute->setChecked(true);
+    ui->checkBox_owner_write->setChecked(true);
+    ui->checkBox_owner_read->setChecked(true);
+
+}
+
+
+void Widget::slotCheckNone()
+{
+    ui->checkBox_group_execute->setChecked(false);
+    ui->checkBox_group_write->setChecked(false);
+    ui->checkBox_group_read->setChecked(false);
+    ui->checkBox_other_execute->setChecked(false);
+    ui->checkBox_other_write->setChecked(false);
+    ui->checkBox_other_read->setChecked(false);
+    ui->checkBox_owner_execute->setChecked(false);
+    ui->checkBox_owner_write->setChecked(false);
+    ui->checkBox_owner_read->setChecked(false);
+}
+
+
 
 void Widget::calcular_permisos()
 {
