@@ -22,6 +22,8 @@ Widget::Widget(QWidget *parent) :
     connect(ui->pushButton_all, &QPushButton::clicked, this, &Widget::slotCheckAll);
     connect(ui->pushButton_none, &QPushButton::clicked, this, &Widget::slotCheckNone);
 
+    connect(ui->lineEdit_octal, &QLineEdit::editingFinished, this, &Widget::fromOctalToMatrix);
+
 }
 
 Widget::~Widget()
@@ -68,7 +70,6 @@ void Widget::slotCheckNone()
 
 void Widget::calcular_permisos()
 {
-
     char m_owner = (ui->checkBox_owner_read->isChecked() << 2)
             | (ui->checkBox_owner_write->isChecked() << 1)
             | ui->checkBox_owner_execute->isChecked();
@@ -106,4 +107,25 @@ void Widget::calcular_permisos()
     memcpy(&permisos_totales[6], permisos_other, sizeof(permisos_other));
 
     ui->label_permisos->setText(QString(permisos_totales));
+}
+
+void Widget::fromOctalToMatrix(){
+    //pasar de octal ej 644 a los permisos binarios
+
+    char m_owner = ui->lineEdit_octal->text().at(0).toLatin1() - '0';
+    char m_group = ui->lineEdit_octal->text().at(1).toLatin1() - '0';
+    char m_other = ui->lineEdit_octal->text().at(2).toLatin1() - '0';
+
+    ui->checkBox_owner_execute->setChecked(m_owner & (1 << 0));
+    ui->checkBox_owner_write->setChecked(m_owner & (1 << 1));
+    ui->checkBox_owner_read->setChecked(m_owner & (1 << 2));
+
+    ui->checkBox_other_execute->setChecked(m_other & (1 << 0));
+    ui->checkBox_other_write->setChecked(m_other & (1 << 1));
+    ui->checkBox_other_read->setChecked(m_other & (1 << 2));
+
+    ui->checkBox_group_execute->setChecked(m_group & (1 << 0));
+    ui->checkBox_group_write->setChecked(m_group & (1 << 1));
+    ui->checkBox_group_read->setChecked(m_group & (1 << 2));
+
 }

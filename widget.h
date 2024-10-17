@@ -19,6 +19,7 @@ private slots:
     void onCheckboxStateChange();
     void slotCheckAll();
     void slotCheckNone();
+    void fromOctalToMatrix();
 
 private:
     Ui::Widget *ui;
